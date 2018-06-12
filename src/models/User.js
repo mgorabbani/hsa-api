@@ -33,31 +33,31 @@ const schema = new mongoose.Schema(
     undergradcgpa: {
       type: Number,
     },
-    gretotal: {
+    unitotal: {
       type: Number,
     },
-    grevarbal: {
+    univarbal: {
       type: Number,
     },
-    grequant: {
+    uniquant: {
       type: Number,
     },
-    greawa: {
+    uniawa: {
       type: Number,
     },
-    toefltotal: {
+    langtotal: {
       type: Number
     },
-    toeflreading: {
+    langreading: {
       type: Number
     },
-    toeflwriting: {
+    langwriting: {
       type: Number
     },
-    toefllistening: {
+    langlistening: {
       type: Number
     },
-    toeflspeaking: {
+    langspeaking: {
       type: Number
     },
     publication_number: {
@@ -75,6 +75,23 @@ const schema = new mongoose.Schema(
     accepted_university: {
       type: String
     },
+
+    unitest: {
+      type: String
+    },
+    intjournal: {
+      type: String
+    },
+    intconference: {
+      type: String
+    },
+    natjournal: {
+      type: String
+    },
+    natconference: {
+      type: String
+    },
+
     incoming_university: {
       type: String
     },
@@ -149,15 +166,15 @@ schema.methods.toAuthJSON = function toAuthJSON() {
     fb_url: this.fb_url,
     bd_uni: this.bd_uni,
     undergradcgpa: this.undergradcgpa,
-    gretotal: this.gretotal,
-    grevarbal: this.grevarbal,
-    grequant: this.grequant,
-    greawa: this.greawa,
-    toefltotal: this.toefltotal,
-    toeflreading: this.toeflreading,
-    toeflwriting: this.toeflwriting,
-    toefllistening: this.toefllistening,
-    toeflspeaking: this.toeflspeaking,
+    unitotal: this.unitotal,
+    univarbal: this.univarbal,
+    uniquant: this.uniquant,
+    uniawa: this.uniawa,
+    langtotal: this.langtotal,
+    langreading: this.langreading,
+    langwriting: this.langwriting,
+    langlistening: this.langlistening,
+    langspeaking: this.langspeaking,
     publication_number: this.publication_number,
     job_experience: this.job_experience,
     research_experience: this.research_experience,

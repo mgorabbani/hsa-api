@@ -15,10 +15,9 @@ const schema = new mongoose.Schema(
     },
     name: {
       type: String,
-      required: true,
-      index: true,
-      unique: true
+      required: true
     },
+
     phone: {
       type: String,
       unique: true
@@ -45,51 +44,71 @@ const schema = new mongoose.Schema(
     uniawa: {
       type: Number,
     },
-    langtotal: {
+    ieltstotal: {
       type: Number
     },
-    langreading: {
+    ieltsreading: {
       type: Number
     },
-    langwriting: {
+    ieltswriting: {
       type: Number
     },
-    langlistening: {
+    ieltslistening: {
       type: Number
     },
-    langspeaking: {
+    ieltsspeaking: {
       type: Number
     },
+    toefltotal: {
+      type: Number
+    },
+    toeflreading: {
+      type: Number
+    },
+    toeflwriting: {
+      type: Number
+    },
+    toefllistening: {
+      type: Number
+    },
+    toeflspeaking: {
+      type: Number
+    },
+
     publication_number: {
       type: Number
     },
     job_experience: {
-      type: Number
+      type: String
     },
     research_experience: {
-      type: Number
+      type: String
     },
     applied_university: {
-      type: String
+      type: [String]
     },
     accepted_university: {
-      type: String
+      type: [String]
     },
 
     unitest: {
       type: String
     },
-    intjournal: {
+    langtest: {
       type: String
     },
+    intjournal: {
+      type: Number
+    },
+
     intconference: {
-      type: String
+      type: Number
     },
     natjournal: {
-      type: String
+      type: Number
     },
     natconference: {
-      type: String
+      type: Number
     },
 
     incoming_university: {
@@ -140,7 +159,7 @@ schema.methods.generateJWT = function generateJWT() {
   return jwt.sign(
     {
       email: this.email,
-      username: this.username,
+      name: this.name,
       confirmed: this.confirmed
     },
     process.env.JWT_SECRET
@@ -166,17 +185,33 @@ schema.methods.toAuthJSON = function toAuthJSON() {
     fb_url: this.fb_url,
     bd_uni: this.bd_uni,
     undergradcgpa: this.undergradcgpa,
+    unitest: this.unitest,
     unitotal: this.unitotal,
     univarbal: this.univarbal,
     uniquant: this.uniquant,
     uniawa: this.uniawa,
-    langtotal: this.langtotal,
-    langreading: this.langreading,
-    langwriting: this.langwriting,
-    langlistening: this.langlistening,
-    langspeaking: this.langspeaking,
-    publication_number: this.publication_number,
+    langtest: this.langtest,
+
+    toefltotal: this.toefltotal,
+    toeflreading: this.toeflreading,
+    toeflwriting: this.toeflwriting,
+    toefllistening: this.toefllistening,
+    toeflspeaking: this.toeflspeaking,
+
+    ieltstotal: this.ieltstotal,
+    ieltsreading: this.ieltsreading,
+    ieltswriting: this.ieltswriting,
+    ieltslistening: this.ieltslistening,
+    ieltsspeaking: this.ieltsspeaking,
+
+    publication_number: this.intjournal + this.intconference + this.natjournal + this.natconference,
     job_experience: this.job_experience,
+
+    intjournal: this.intjournal,
+    intconference: this.intconference,
+    natjournal: this.natjournal,
+    natconference: this.natconference,
+
     research_experience: this.research_experience,
     applied_university: this.applied_university,
     accepted_university: this.accepted_university,

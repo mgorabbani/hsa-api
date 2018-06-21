@@ -6,9 +6,25 @@ import authenticate from "../middlewares/authenticate";
 
 const router = express.Router();
 
+router.get("/sd", (req, res) => {
+  // User.aggregate.sortByCount('users').then((err, user) => {
+  //   if (!err) {
+  //     res.json({
+  //       result: user
+  //     });
+  //   }
+
+  // })
+  console.log('fuck')
+  res.json({
+    result: 'worng'
+  });
+
+});
+
 router.post("/", (req, res) => {
-  const { email, password, username } = req.body.user;
-  const user = new User({ email, username });
+  const { email, password, name } = req.body.user;
+  const user = new User({ email, name });
   user.setPassword(password);
   user.setConfirmationToken();
   user
@@ -39,5 +55,7 @@ router.patch("/current_user", authenticate, (req, res) => {
     message: 'Successfully Updated!'
   });
 });
+
+
 
 export default router;

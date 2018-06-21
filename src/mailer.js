@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-const from = '"D&D Adventurers League Hub" <info@alhub.com>';
+const from = '"HSA STUDENTS" <app@higherstudyabroad.com>';
 
 function setup() {
   return nodemailer.createTransport({
@@ -18,9 +18,9 @@ export function sendConfirmationEmail(user) {
   const email = {
     from,
     to: user.email,
-    subject: "Welcome to Adventurers League Hub",
+    subject: "Welcome to HSA Students App",
     text: `
-    Welcome to Adventurers League Hub. Please, confirm your email.
+    Welcome to HSA Students App. Please, confirm your email.
 
     ${user.generateConfirmationUrl()}
     `

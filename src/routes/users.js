@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../models/User";
+
 import parseErrors from "../utils/parseErrors";
 import { sendConfirmationEmail } from "../mailer";
 import authenticate from "../middlewares/authenticate";
@@ -15,7 +16,7 @@ router.get("/sd", (req, res) => {
   //   }
 
   // })
-  console.log('fuck')
+
   res.json({
     result: 'worng'
   });
@@ -33,13 +34,20 @@ router.post("/", (req, res) => {
       sendConfirmationEmail(userRecord);
       res.json({ user: userRecord.toAuthJSON() });
     })
-    .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
+    .catch(err => res.status(400).json({ errors: err }));
 });
 
 router.get("/current_user", authenticate, (req, res) => {
-  res.json({
-    user: req.currentUser
-  });
+  if (!!req.currentUser) {
+    res.json({
+      user: req.currentUser
+    });
+  } else {
+    res.json({
+      errors: 'No User found',
+    });
+  }
+
 });
 
 router.patch("/current_user", authenticate, (req, res) => {
@@ -56,6 +64,32 @@ router.patch("/current_user", authenticate, (req, res) => {
   });
 });
 
+router.post("/uni_bucket", authenticate, (req, res) => {
+  let email = req.currentUser.email;
+  const value = req.body.data;
+
+  try {
+    User.findOneAndUpdate({ email: email }, { $push: { bucket_list: { name: value } } }).then((user) => {
+      res.json(user)
+    })
+  } catch (e) {
+    res.status(500).json(e)
+  }
+});
+
+router.delete("/uni_bucket", authenticate, (req, res) => {
+  let email = req.currentUser.email;
+  const value = req.body.data;
+  console.log(value)
+  try {
+    User.findOneAndUpdate({ email: email }, { $pull: { bucket_list: { name: value } } }).then((member) => {
+      // console.log(member)
+      res.json(member)
+    })
+  } catch (e) {
+    res.status(500).json(e)
+  }
+});
 
 
 export default router;

@@ -22,14 +22,17 @@
     "prettier": "^1.9.1"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "bcrypt": "^2.0.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
+    "gravatar-url": "^2.0.0",
     "jsonwebtoken": "^7.4.3",
     "lodash": "^4.17.4",
+    "mongodb": "^3.1.0",
     "mongoose": "^5.1.5",
     "mongoose-seed": "^0.4.0",
     "mongoose-unique-validator": "^2.0.1",

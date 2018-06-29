@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import uniqueValidator from "mongoose-unique-validator";
-
+const gravatarUrl = require('gravatar-url');
 // TODO: add uniqueness and email validations to email field
 const schema = new mongoose.Schema(
   {
@@ -17,14 +17,11 @@ const schema = new mongoose.Schema(
       type: String,
       required: true
     },
-
     phone: {
       type: String,
-      unique: true
     },
     fb_url: {
       type: String,
-      unique: true
     },
     bd_uni: {
       type: String,
@@ -85,10 +82,10 @@ const schema = new mongoose.Schema(
       type: String
     },
     applied_university: {
-      type: [String]
+      type: String
     },
     accepted_university: {
-      type: [String]
+      type: String
     },
 
     unitest: {
@@ -126,13 +123,13 @@ const schema = new mongoose.Schema(
     financial_aid: {
       type: [String]
     },
+    bucket_list: [{ name: 'string' }],
     passwordHash: { type: String, required: true },
     confirmed: { type: Boolean, default: false },
-    confirmationToken: { type: String, default: "" }
+    confirmationToken: { type: String, default: "" },
   },
   { timestamps: true }
 );
-
 schema.methods.isValidPassword = function isValidPassword(password) {
   return bcrypt.compareSync(password, this.passwordHash);
 };
@@ -154,7 +151,9 @@ schema.methods.generateResetPasswordLink = function generateResetPasswordLink() 
     process.env.HOST
     }/reset_password/${this.generateResetPasswordToken()}`;
 };
-
+schema.methods.generatePhoto = function generatePhoto() {
+  return gravatarUrl(this.email, { size: 200 });
+}
 schema.methods.generateJWT = function generateJWT() {
   return jwt.sign(
     {
@@ -177,28 +176,46 @@ schema.methods.generateResetPasswordToken = function generateResetPasswordToken(
 };
 
 schema.methods.toAuthJSON = function toAuthJSON() {
+  let v, q, gretotal, tr, tl, ts, tw, ir, is, il, iw, toefl, ielts;
+  q = this.uniquant || 0
+  v = this.univarbal || 0
+
+  tr = this.toeflreading || 0
+  tl = this.toefllistening || 0
+  ts = this.toeflspeaking || 0
+  tw = this.toeflwriting || 0
+
+  ir = this.ieltsreading || 0
+  il = this.ieltslistening || 0
+  is = this.ieltsspeaking || 0
+  iw = this.ieltswriting || 0
+
+  toefl = tr + tl + ts + tw;
+  ielts = ir + il + is + iw;
+  gretotal = parseInt(q) + parseInt(v)
   return {
     email: this.email,
     confirmed: this.confirmed,
     name: this.name,
+    photo: this.generatePhoto(),
     phone: this.phone,
     fb_url: this.fb_url,
     bd_uni: this.bd_uni,
     undergradcgpa: this.undergradcgpa,
     unitest: this.unitest,
-    unitotal: this.unitotal,
+    unitotal: gretotal,
     univarbal: this.univarbal,
     uniquant: this.uniquant,
     uniawa: this.uniawa,
     langtest: this.langtest,
 
-    toefltotal: this.toefltotal,
+    toefltotal: toefl,
     toeflreading: this.toeflreading,
     toeflwriting: this.toeflwriting,
     toefllistening: this.toefllistening,
     toeflspeaking: this.toeflspeaking,
 
-    ieltstotal: this.ieltstotal,
+    ieltstotal: ielts,
     ieltsreading: this.ieltsreading,
     ieltswriting: this.ieltswriting,
     ieltslistening: this.ieltslistening,
@@ -207,11 +224,12 @@ schema.methods.toAuthJSON = function toAuthJSON() {
     publication_number: this.intjournal + this.intconference + this.natjournal + this.natconference,
     job_experience: this.job_experience,
 
+    bucket_list: this.bucket_list,
+
     intjournal: this.intjournal,
     intconference: this.intconference,
     natjournal: this.natjournal,
     natconference: this.natconference,
-
     research_experience: this.research_experience,
     applied_university: this.applied_university,
     accepted_university: this.accepted_university,
@@ -223,7 +241,6 @@ schema.methods.toAuthJSON = function toAuthJSON() {
     token: this.generateJWT()
   };
 };
-
 schema.plugin(uniqueValidator, {
   message: "It is already taken, try another one."
 });

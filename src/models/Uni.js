@@ -8,4 +8,4 @@ const schema = new mongoose.Schema(
     })
 
 
-export default mongoose.model("uni", schema);
+export default mongoose.model("Unilist", schema);

@@ -13,7 +13,8 @@ export default (req, res, next) => {
         res.status(401).json({ errors: { global: "Invalid token" } });
       } else {
         User.findOne({ email: decoded.email }).then(user => {
-          req.currentUser = user.toAuthJSON();
+          if (user)
+            req.currentUser = user.toAuthJSON();
           next();
         });
       }

@@ -13,8 +13,12 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGODB_URL);
-
+mongoose.connect(process.env.MONGODB_URL, {
+    auth: {
+        user: process.env.MONGO_DB_USER,
+        password: process.env.MONGO_DB_PASSWORD
+    }
+})
 app.use("/api/auth", auth);
 app.use("/api/users", users);
 app.use("/api/unilist", unilist);

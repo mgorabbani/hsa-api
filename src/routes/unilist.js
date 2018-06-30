@@ -9,7 +9,7 @@ import { throws } from "assert";
 require('dotenv').config();
 const router = express.Router();
 
-const url = 'mongodb://hsa:1pqlamz0@ds125031.mlab.com:25031';
+const url = 'mongodb://hsa:1pqlamz0@ds125031.mlab.com:25031/hsa';
 
 const dbName = 'hsa';
 router.get("/insights", (req, res) => {
@@ -17,7 +17,7 @@ router.get("/insights", (req, res) => {
 
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, client) {
         if (err) {
-            throw err;
+            console.log(err);
         } else {
 
             const db = client.db(dbName);

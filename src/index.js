@@ -19,8 +19,8 @@ app.use("/api/auth", auth);
 app.use("/api/users", users);
 app.use("/api/unilist", unilist);
 
-// app.get("/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "index.html"));
-// });
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+});
 
 app.listen(8888, () => console.log("Running on localhost:8888"));

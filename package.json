@@ -4,8 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node -- src/index.js",
-    "seed": "babel-node seed/seed.js"
+    "build": "babel src -d dist --source-maps",
+    "serve": "node dist/index.js",
+    "start": "babel-node src/index.js",
+    "startd": "nodemon src/index.js --exec babel-node"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -24,6 +26,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-node8": "^1.2.0",
     "bcrypt": "^2.0.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.17.2",

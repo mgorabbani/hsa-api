@@ -1,14 +1,13 @@
 import nodemailer from "nodemailer";
 
-const from = '"HSA STUDENTS" <app@higherstudyabroad.com>';
+const from = '"University Finder" <knight3rrantt@gmail.com>';
 
 function setup() {
   return nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
+    service: 'gmail',
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
+      user: 'higherstudyabroad@gmail.com',
+      pass: 'asadfade'
     }
   });
 }
@@ -26,7 +25,7 @@ export function sendConfirmationEmail(user) {
     `
   };
 
-  tranport.sendMail(email);
+  tranport.sendMail(email).catch(e => console.log(e))
 }
 
 export function sendResetPasswordEmail(user) {
@@ -42,5 +41,5 @@ export function sendResetPasswordEmail(user) {
     `
   };
 
-  tranport.sendMail(email);
+  tranport.sendMail(email).catch(e => console.log(e))
 }

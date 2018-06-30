@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-
+require('dotenv').config();
 const from = '"University Finder" <knight3rrantt@gmail.com>';
 
 function setup() {

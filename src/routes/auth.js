@@ -2,7 +2,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
 import { sendResetPasswordEmail } from "../mailer";
-
+require('dotenv').config();
 const router = express.Router();
 
 router.post("/", (req, res) => {

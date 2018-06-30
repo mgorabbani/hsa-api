@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import uniqueValidator from "mongoose-unique-validator";
 const gravatarUrl = require('gravatar-url');
+require('dotenv').config();
 // TODO: add uniqueness and email validations to email field
 const schema = new mongoose.Schema(
   {

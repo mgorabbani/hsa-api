@@ -6,10 +6,11 @@ import User from "../models/User";
 import parseErrors from "../utils/parseErrors";
 import authenticate from "../middlewares/authenticate";
 import { throws } from "assert";
-
+require('dotenv').config();
 const router = express.Router();
 
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb://hsa:1pqlamz0@ds125031.mlab.com:25031';
+
 const dbName = 'hsa';
 router.get("/insights", (req, res) => {
 
@@ -55,7 +56,7 @@ router.post("/recommend", (req, res) => {
 
 
     let category;
-    axios.post('http://ec2-18-222-28-1.us-east-2.compute.amazonaws.com:5000', {
+    axios.post('localhost:8888', {
         "bd_cgpa": data.undergradcgpa,
         "gre_verbal": data.univarbal,
         "gre_quant": data.uniquant,

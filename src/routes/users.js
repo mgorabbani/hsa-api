@@ -4,7 +4,7 @@ import User from "../models/User";
 import parseErrors from "../utils/parseErrors";
 import { sendConfirmationEmail } from "../mailer";
 import authenticate from "../middlewares/authenticate";
-
+require('dotenv').config();
 const router = express.Router();
 
 router.get("/sd", (req, res) => {

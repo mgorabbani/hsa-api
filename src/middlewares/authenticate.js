@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User";
-
+require('dotenv').config();
 export default (req, res, next) => {
   const header = req.headers.authorization;
   let token;
